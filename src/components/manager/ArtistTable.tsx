@@ -1,4 +1,3 @@
-// src/components/manager/ArtistTable.tsx
 import { Artist } from "@/components/artists/ArtistCard";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
@@ -21,28 +20,34 @@ export default function ArtistTable({ artists }: Props) {
         </thead>
         <tbody>
           {artists.map((artist) => (
-            <td className="px-4 py-2">
-              <Dialog>
-                <DialogTrigger className="text-blue-600 hover:underline">
-                  View
-                </DialogTrigger>
-                <DialogContent>
-                  <h2 className="font-bold text-lg mb-2">{artist.name}</h2>
-                  <p>
-                    <strong>Category:</strong> {artist.category}
-                  </p>
-                  <p>
-                    <strong>Location:</strong> {artist.location}
-                  </p>
-                  <p>
-                    <strong>Fee:</strong> {artist.priceRange}
-                  </p>
-                  <p>
-                    <strong>Bio:</strong> {artist.bio || "N/A"}
-                  </p>
-                </DialogContent>
-              </Dialog>
-            </td>
+            <tr key={artist.id}>
+              <td className="px-4 py-2">{artist.name}</td>
+              <td className="px-4 py-2">{artist.category}</td>
+              <td className="px-4 py-2">{artist.location}</td>
+              <td className="px-4 py-2">{artist.priceRange}</td>
+              <td className="px-4 py-2">
+                <Dialog>
+                  <DialogTrigger className="text-blue-600 hover:underline">
+                    View
+                  </DialogTrigger>
+                  <DialogContent>
+                    <h2 className="font-bold text-lg mb-2">{artist.name}</h2>
+                    <p>
+                      <strong>Category:</strong> {artist.category}
+                    </p>
+                    <p>
+                      <strong>Location:</strong> {artist.location}
+                    </p>
+                    <p>
+                      <strong>Fee:</strong> {artist.priceRange}
+                    </p>
+                    <p>
+                      <strong>Bio:</strong> {artist.bio || "N/A"}
+                    </p>
+                  </DialogContent>
+                </Dialog>
+              </td>
+            </tr>
           ))}
         </tbody>
       </table>

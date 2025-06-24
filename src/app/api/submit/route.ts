@@ -1,11 +1,21 @@
 import { NextResponse } from "next/server";
 
-const mockArtistDB: any[] = []; // in-memory mock "DB"
+type Artist = {
+  name: string;
+  bio: string;
+  fee: string;
+  category: string;
+  location?: string;
+  languages?: string[];
+};
+
+const mockArtistDB: Artist[] = []; // in-memory mock "DB"
 
 export async function POST(req: Request) {
-  const data = await req.json();
-  mockArtistDB.push(data); // store it temporarily
+  const data: Artist = await req.json();
+  mockArtistDB.push(data);
   console.log("Artist submitted:", data);
+
   return NextResponse.json(
     { message: "Artist submitted successfully" },
     { status: 201 }

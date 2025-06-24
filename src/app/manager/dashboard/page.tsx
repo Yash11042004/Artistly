@@ -1,6 +1,5 @@
 "use client";
 
-import { useAuth } from "@/context/AuthContext";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import DashboardTable from "@/components/manager/DashboardTable";
@@ -9,15 +8,24 @@ import { toast } from "sonner";
 import { Loader2 } from "lucide-react";
 import Link from "next/link";
 
+type ArtistRaw = {
+  name: string;
+  bio?: string;
+  categories?: string[];
+  category?: string;
+  fee?: string;
+  location?: string;
+  languages?: string[];
+};
+
 export default function ManagerDashboard() {
-  // const { isLoggedIn } = useAuth();
   const router = useRouter();
 
   const [loading, setLoading] = useState(true);
   const [artists, setArtists] = useState<Artist[]>([]);
   const [filters, setFilters] = useState({ category: "", sort: "" });
 
-  // 🔒 Check login first
+  //  To Check login
   useEffect(() => {
     const loggedIn = localStorage.getItem("artistly-logged-in");
     if (loggedIn !== "true") {
@@ -28,15 +36,15 @@ export default function ManagerDashboard() {
     }
   }, [router]);
 
-  // 🧠 Load artists
+  // To Load artists
   useEffect(() => {
     if (loading) return;
 
     const localArtists = localStorage.getItem("artists");
     if (localArtists) {
-      const parsed = JSON.parse(localArtists);
-      const normalized = parsed.map((a: any, i: number) => ({
-        id: i.toString(),
+      const parsed = JSON.parse(localArtists) as ArtistRaw[];
+      const normalized: Artist[] = parsed.map((a, i) => ({
+        id: i,
         name: a.name,
         bio: a.bio || "",
         category: Array.isArray(a.categories)
@@ -50,11 +58,11 @@ export default function ManagerDashboard() {
     } else {
       fetch("/data/artists.json")
         .then((res) => res.json())
-        .then((data) => setArtists(data));
+        .then((data: Artist[]) => setArtists(data));
     }
   }, [loading]);
 
-  // 🎚️ Filter & Sort logic
+  // for Filter & sort
   const filtered = [...artists]
     .filter((a) => !filters.category || a.category === filters.category)
     .sort((a, b) => {
@@ -65,7 +73,7 @@ export default function ManagerDashboard() {
       return 0;
     });
 
-  // ⏳ While checking login, show spinner
+  // To Show spinner while loading
   if (loading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -79,10 +87,10 @@ export default function ManagerDashboard() {
     <main className="p-6">
       <h1 className="text-2xl font-bold mb-4">Manager Dashboard</h1>
 
-      {/*  Go to Homepage button */}
+      {/*  Home button */}
       <Link href="/" className="inline-block mb-6">
         <button className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700 transition">
-          Home
+          Go to Home
         </button>
       </Link>
 
