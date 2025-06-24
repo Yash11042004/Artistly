@@ -1,0 +1,30 @@
+[
+  {
+    "id": 1,
+    "name": "Aria Blaze",
+    "category": "Singer",
+    "location": "New York",
+    "priceRange": "$1000 - $1500"
+  },
+  {
+    "id": 2,
+    "name": "DJ Pulse",
+    "category": "DJ",
+    "location": "Los Angeles",
+    "priceRange": "$2000 - $3000"
+  },
+  {
+    "id": 3,
+    "name": "Sophia Twist",
+    "category": "Dancer",
+    "location": "Chicago",
+    "priceRange": "$800 - $1200"
+  },
+  {
+    "id": 4,
+    "name": "Leo Sparks",
+    "category": "Speaker",
+    "location": "San Francisco",
+    "priceRange": "$1500 - $2500"
+  }
+]
